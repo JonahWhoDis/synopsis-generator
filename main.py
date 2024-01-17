@@ -27,7 +27,7 @@ def get_law_text(book: str, paragraph: str, article: str) -> dict:
 # If your JSON structure is different, you'll need to adjust the logic accordingly.
 
 
-def read_law_book(book_name: str, file_path: str = "path/to/law_books/") -> Dict[str, Any]:
+def read_law_book(book_name: str, file_path: str = "/Users/jonah/Documents/GitHub/synopsis-generator/downloaded_jsons/") -> Dict[str, Any]:
     """
     Reads and parses a JSON file for a specified law book.
 
