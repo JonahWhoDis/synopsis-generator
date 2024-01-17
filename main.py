@@ -54,7 +54,7 @@ def extract_law_text(law_book: Dict[str, Any], article_name: str, paragraph_numb
     :raises KeyError: If the article or paragraph is not found.
     """
     for content in law_book.get("data", {}).get("contents", []):
-        if content.get("type") == "article" and content.get("name") == article_name:
+        if content.get("type") == "article" and content.get("name") == '\u00a7 ' + article_name:
             paragraphs = re.findall(r"<P>\((\d+)\) (.*?)</P>", content.get("body", ""))
             for num, para_text in paragraphs:
                 if num == paragraph_number:

@@ -9,5 +9,5 @@ def test_get_law_text(book, article, paragraph):
         print(f"Error: {response.status_code}")
 
 # Test cases
-test_get_law_text("1_dm_goldmuenzg", "\u00a7 2", "1")
-test_get_law_text("1_dm_goldmuenzg", "\u00a7 18", "2")
+test_get_law_text("1_dm_goldmuenzg", "2", "1")
+test_get_law_text("1_dm_goldmuenzg", "18", "2")
