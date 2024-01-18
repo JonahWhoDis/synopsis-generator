@@ -83,6 +83,9 @@ def build_lookup_dictionary(law_data):
         lookup_dict[original_abbreviation] = data['filename']
         lookup_dict[normalized_abbreviation] = data['filename']
 
+    # Speichern des Nachschlagewerks als JSON
+    save_lookup_dictionary_to_json(lookup_dict, "/Users/jonah/Documents/GitHub/synopsis-generator/lookup_dictionary.json")
+
     return lookup_dict
 
 
@@ -101,10 +104,35 @@ def find_law_file(lookup_dict, search_term):
     normalized_search_term = normalize_law_name(search_term)
     return lookup_dict.get(normalized_search_term, "")
 
+def save_lookup_dictionary_to_json(lookup_dict, file_path):
+    """
+    Saves the lookup dictionary to a JSON file.
+
+    Args:
+    lookup_dict (dict): The lookup dictionary for law names.
+    file_path (str): The file path where the JSON should be saved.
+    """
+    with open(file_path, 'w', encoding='utf-8') as file:
+        json.dump(lookup_dict, file, ensure_ascii=False, indent=4)
 
 
-law_data_normalized = read_law_json_files_with_normalization("/Users/jonah/Documents/GitHub/synopsis-generator/downloaded_jsons")
-lookup_dict = build_lookup_dictionary(law_data_normalized)
+
+
+def load_lookup_dictionary_from_json(file_path):
+    """
+    Loads the lookup dictionary from a JSON file.
+
+    Args:
+    file_path (str): The file path of the JSON file.
+
+    Returns:
+    dict: The loaded lookup dictionary.
+    """
+    with open(file_path, 'r', encoding='utf-8') as file:
+        return json.load(file)
+
+
+lookup_dict = load_lookup_dictionary_from_json("/Users/jonah/Documents/GitHub/synopsis-generator/lookup_dictionary.json")
 
 # Beispiel, wie man die 'find_law_file' Funktion verwendet:
 file_name = find_law_file(lookup_dict, " BEEG")
