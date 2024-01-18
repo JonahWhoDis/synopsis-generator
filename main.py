@@ -1,9 +1,23 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from typing import Dict, Any
 import json
 import re
+import logging
+from starlette.responses import Response
 
 app = FastAPI()
+
+logging.basicConfig(filename='app.log', level=logging.INFO)
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    response = await call_next(request)
+    request_log = f"Request: {request.method} {request.url} Query Params: {request.query_params}"
+    response_log = f"Response Status: {response.status_code}"
+    logging.info(request_log)
+    logging.info(response_log)
+    return response
+
 
 @app.get("/law-text")
 def get_law_text(book: str, article: str, paragraph: str) -> dict:
@@ -23,9 +37,8 @@ def get_law_text(book: str, article: str, paragraph: str) -> dict:
         raise HTTPException(status_code=404, detail=str(e))
     except KeyError as e:
         raise HTTPException(status_code=404, detail=str(e))
-
-
-def read_law_book(book_name: str, file_path: str = "/Users/jonah/Documents/GitHub/synopsis-generator/downloaded_jsons/") -> Dict[str, Any]:
+    
+def read_law_book(book_name: str, file_path: str = "/synopsis-generator/synopsis-generator/downloaded_jsons/") -> Dict[str, Any]:
     """
     Reads and parses a JSON file for a specified law book.
 
@@ -61,8 +74,3 @@ def extract_law_text(law_book: Dict[str, Any], article_name: str, paragraph_numb
                     return para_text
             raise KeyError(f"Paragraph '{paragraph_number}' not found in article '{article_name}'.")
     raise KeyError(f"Article '{article_name}' not found in the book.")
-
-
-
-
-
