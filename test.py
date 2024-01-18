@@ -22,6 +22,6 @@ def test_get_law_text(book, article, paragraph):
 # Check server accessibility
 ping_server("https://synopsis-generator.de")
 
-# Test API endpoint
-test_get_law_text("1_dm_goldmuenzg", "2", "1")
-test_get_law_text("1_dm_goldmuenzg", "18", "2")
+# Test API endpointr
+test_get_law_text("BEEG", "2", "1")
+test_get_law_text("BEEG", "18", "2")
