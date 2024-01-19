@@ -1,4 +1,4 @@
-# synopsis-generator´
+# synopsis-generator
 
 ## Überblick
 
