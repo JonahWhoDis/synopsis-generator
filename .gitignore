@@ -1,3 +1,4 @@
 .history
 .history/
 downloaded_jsons/
+__pycache__/
